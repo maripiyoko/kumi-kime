@@ -1,30 +1,50 @@
 <template>
-  <div id="box-list">
+  <div id="box-list" class="mdl-cell mdl-cell--6-col">
     <div>
-      <h2>{{name}}</h2>
-      <input class="new-box"
-        autofocus autocomplete="off"
-        placeholder="新しい役の名前を入力してください"
-        v-model="newBox"
-        @keyup.enter="addBox" />
+      <h3>{{name}}</h3>
+      <div class="mdl-textfield mdl-js-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="new-box mdl-textfield__input"
+          id="new_box"
+          type="text"
+          autofocus autocomplete="off"
+          placeholder=""
+          v-model="newBox"
+          @keyup.enter="addBox" />
+        <label class="mdl-textfield__label" for="new_box">新しい役の名前</label>
+      </div>
+      <span>({{boxes.length}})</span>
     </div>
-    <ul class="editable-list">
-      <li v-for="box in boxes"
-        class="box"
-        :key="box.id"
-        :class="{ editing: box == editedBox }">
-        <div class="view">
-          <label @dblclick="editBox(box)">{{box.name}} ({{box.num_requirements}})</label>
-          <button class="destroy" @click="removeBox(box)">消す</button>
-        </div>
-        <input class="edit" type="text"
-          v-model="box.name"
-          v-box-focus="box == editedBox"
-          @blur="doneEdit(box)"
-          @keyup.enter="doneEdit(box)"
-          @keyup.esc="cancelEdit(box)" />
-      </li>
-    </ul>
+    <div>
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" v-show="boxes.length">
+        <thead>
+          <th>ID</th>
+          <th class="mdl-data-table__cell--non-numeric">役の名前</th>
+          <th>数</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr v-for="box in boxes" class="box" :key="box.id">
+            <td>{{box.id}}</td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <input class="mdl-textfield__input" type="text" v-model="box.name"/>
+            </td>
+            <td>
+              <input class="mdl-textfield__input num-input" type="text" pattern="[0-9]*"
+                v-model="box.num_requirements" />
+            </td>
+            <td>
+              <button class="mdl-button mdl-js-button mdl-button--icon"
+                @click="removeBox(box)">
+                <i class="material-icons">remove</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" @click="clearAllBoxes()">
+      役を全部クリアする
+    </button>
   </div>
 </template>
 
@@ -48,7 +68,7 @@ export default {
   name: 'box-list',
   data () {
     return {
-      name: 'box list default name',
+      name: '役決め',
       newBox: '',
       boxes: boxStorage.fetch(),
       editedBox: null
@@ -75,11 +95,16 @@ export default {
       })
       this.newBox = ''
     },
-    editBox: function(box) {
+    editBoxName: function(box) {
+      alert('editBoxName')
       this.beforeEditCache = box.name
       this.editedBox = box
     },
-    doneEdit: function(box) {
+    editBoxNum: function(box) {
+      this.beforeEditCache = box.num_requirements
+      this.editedBox = box
+    },
+    doneNameEdit: function(box) {
       if (!this.editedBox) {
         return
       }
@@ -89,12 +114,28 @@ export default {
         this.removeBox(box)
       }
     },
-    cancelEdit: function(box) {
+    doneNumEdit: function(box) {
+      if (!this.editedBox) {
+        return
+      }
+      this.editedBox = null
+      if(!box.num_requirements) {
+        this.removeBox(box)
+      }
+    },
+    cancelNameEdit: function(box) {
       this.editedBox = null
       box.name = this.beforeEditCache
     },
+    cancelNumEdit: function(box) {
+      this.editedBox = null
+      box.num_requirements = this.beforeEditCache
+    },
     removeBox: function(box) {
-      this.boxes.slice(this.boxes.indexOf(box), 1)
+      this.boxes.splice(this.boxes.indexOf(box), 1)
+    },
+    clearAllBoxes: function() {
+      this.boxes = []
     }
   },
 
@@ -109,10 +150,4 @@ export default {
 </script>
 
 <style>
-#box-list {
-  max-width: 300px;
-  border-right: 1px solid #999;
-  max-hight: 100%;
-  padding: 30px;
-}
 </style>

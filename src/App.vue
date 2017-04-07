@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="mdl-grid">
     <box-list></box-list>
   </div>
 </template>
@@ -22,27 +22,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin: 0;
-  hight: 100%;
 }
-.editable-list {
-  padding: 0;
-}
-.editable-list li {
-  position: relative;
-  list-style: none;
-}
-.editable-list .view {
-  background-color: yellow;
-  margin: 20px 0;
-  z-index: 10;
-}
-.editable-list .edit {
-  position: absolute;
-  top: 0;
-}
-input {
-  width: 100%;
-  font-size: 18px;
-  padding: 5px;
+.num-input {
+  width: 40px;
+  text-align: right;
 }
 </style>
