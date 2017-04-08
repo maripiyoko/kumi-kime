@@ -1,16 +1,18 @@
 <template>
   <div id="app" class="mdl-grid">
     <box-list></box-list>
+    <player-list></player-list>
   </div>
 </template>
 
 <script>
 import BoxList from './components/BoxList'
+import PlayerList from './components/PlayerList'
 
 export default {
   name: 'app',
   components: {
-    BoxList
+    BoxList, PlayerList
   }
 }
 </script>
