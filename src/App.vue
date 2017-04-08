@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="mdl-grid">
-    <box-list></box-list>
-    <player-list></player-list>
+    <box-list ref="boxref"></box-list>
+    <player-list v-on:matchBoxPlayers="players_callback"></player-list>
   </div>
 </template>
 
@@ -13,6 +13,13 @@ export default {
   name: 'app',
   components: {
     BoxList, PlayerList
+  },
+  methods: {
+    players_callback: function(players) {
+      console.log(players)
+      var boxes = this.$refs.boxref.boxes
+      console.log(boxes)
+    },
   }
 }
 </script>

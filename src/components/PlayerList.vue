@@ -47,7 +47,8 @@
     <div class="mdl-tabs__panel" id="players-match-panel">
       <h3>結果を確認する</h3>
       <div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+          @click="matchBoxPlayers()">
           組み合わせを探す
         </button>
         <ul class="mdl-list">
@@ -128,6 +129,10 @@ export default {
       if (resultPlayers.length > 0) {
         this.players = resultPlayers
       }
+    },
+    matchBoxPlayers: function() {
+      console.log('matchBoxPlayers')
+      this.$emit('matchBoxPlayers', this.players);
     }
   }
 }
