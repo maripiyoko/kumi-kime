@@ -100,7 +100,7 @@ export default {
         return
       }
       this.boxes.push({
-        id: boxStorage.uid++,
+        id: ++boxStorage.uid,
         name: value,
         num_requirements: 2
       })

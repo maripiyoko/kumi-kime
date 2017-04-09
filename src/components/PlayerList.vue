@@ -36,6 +36,11 @@
               @click="importPlayers()">
               取り込み
             </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 
+              @click="clearAllPlayers()"
+              style="margin-top:100px;">
+              参加者を全部クリアする
+            </button>
           </div>
         </div>
         <ul class="mdl-list">
@@ -67,7 +72,6 @@
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -122,6 +126,9 @@ export default {
         boxId: ''
       })
       this.newPlayer = ''
+    },
+    clearAllPlayers: function() {
+      this.players = []
     },
     importPlayers: function() {
       var value = this.importingPlayersCsv && this.importingPlayersCsv.trim()
