@@ -1,8 +1,10 @@
 <template>
   <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect　mdl-cell mdl-cell--6-col">
     <div class="mdl-tabs__tab-bar">
-      <a href="#players-load-panel" class="mdl-tabs__tab is-active">参加者の登録</a>
-      <a href="#players-match-panel" class="mdl-tabs__tab">結果確認</a>
+      <a href="#players-load-panel" class="mdl-tabs__tab"
+        :class="{ 'is-active' : isNoPlayer() }">参加者の登録</a>
+      <a href="#players-match-panel" class="mdl-tabs__tab"
+        :class="{ 'is-active' : !isNoPlayer() }">結果確認</a>
     </div>
 
     <div class="mdl-tabs__panel is-active" id="players-load-panel">
@@ -53,7 +55,14 @@
         </button>
         <ul class="mdl-list">
           <li v-for="player in players" class="player mdl-list__item">
-            {{player.id}}. {{player.name}} {{player.choices}}
+            {{player.id}}. {{player.name}} {{player.choices}} : {{player.boxId}}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul class="mdl-list">
+          <li v-for="boxPlayer in boxPlayers" class="box-player mdl-list__item">
+            {{boxPlayer}}
           </li>
         </ul>
       </div>
@@ -79,6 +88,7 @@ var playerStorage = {
 }
 export default {
   name: 'player-list',
+  props: ['boxPlayers'],
   data () {
     return {
       name: '参加者一覧',
@@ -97,6 +107,9 @@ export default {
     }
   },
   methods: {
+    isNoPlayer: function() {
+      return this.players.length == 0
+    },
     addPlayer: function() {
       var value = this.newPlayer && this.newPlayer.trim()
       if (!value) {
@@ -105,7 +118,8 @@ export default {
       this.players.push({
         id: playerStorage.uid++,
         name: value,
-        choices: []
+        choices: [],
+        boxId: ''
       })
       this.newPlayer = ''
     },
@@ -123,7 +137,8 @@ export default {
           name: cells[0].trim(),
           choices: cells.slice(1).map(function(n) {
             return parseInt(n)
-          })
+          }),
+          boxId: ''
         })
       })
       if (resultPlayers.length > 0) {
@@ -131,7 +146,6 @@ export default {
       }
     },
     matchBoxPlayers: function() {
-      console.log('matchBoxPlayers')
       this.$emit('matchBoxPlayers', this.players);
     }
   }

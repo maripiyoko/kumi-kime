@@ -42,6 +42,14 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <ul class="mdl-list">
+        <li v-for="player in remainingPlayers" class="player mdl-list__item">
+          {{player}}
+        </li>
+      </ul>
+    </div>
+    <hr/>
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" @click="clearAllBoxes()">
       役を全部クリアする
     </button>
@@ -54,7 +62,9 @@ var boxStorage = {
   fetch: function() {
     var boxes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
     boxes.forEach(function (box, index) {
-      box.id = index
+      if (!box.id) {
+        box.id = index + 1
+      }
     })
     boxStorage.uid = boxes.length
     return boxes
@@ -66,6 +76,7 @@ var boxStorage = {
 
 export default {
   name: 'box-list',
+  props: ['remainingPlayers'],
   data () {
     return {
       name: '役決め',
