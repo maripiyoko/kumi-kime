@@ -1,29 +1,30 @@
 <template>
-  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect　mdl-cell mdl-cell--6-col">
-    <div class="mdl-tabs__tab-bar">
-      <a href="#players-load-panel" class="mdl-tabs__tab"
-        :class="{ 'is-active' : isNoPlayer() }">参加者の登録</a>
-      <a href="#players-match-panel" class="mdl-tabs__tab"
-        :class="{ 'is-active' : !isNoPlayer() }">結果確認</a>
-    </div>
+  <div>
+    <div class="mdl-layout__tab-panel" id="players-load-panel">
+      <div id="player-list" class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+          <h4>1人ずつ登録</h4>
+          <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="new-box mdl-textfield__input"
+              id="new_player"
+              type="text"
+              autofocus autocomplete="off"
+              placeholder=""
+              v-model="newPlayer"
+              @keyup.enter="addPlayer" />
+            <label class="mdl-textfield__label" for="new_player">新しい参加者の名前</label>
+          </div>
 
-    <div class="mdl-tabs__panel is-active" id="players-load-panel">
-      <div id="player-list" class="">
-        <h4>1人ずつ登録</h4>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="new-box mdl-textfield__input"
-            id="new_player"
-            type="text"
-            autofocus autocomplete="off"
-            placeholder=""
-            v-model="newPlayer"
-            @keyup.enter="addPlayer" />
-          <label class="mdl-textfield__label" for="new_player">新しい参加者の名前</label>
+          <ul class="mdl-list">
+            <li v-for="player in players" class="player mdl-list__item">
+              {{player.id}}. {{player.name}} {{player.choices}} : {{player.boxId}}
+            </li>
+          </ul>
         </div>
 
-        <h4>まとめて登録</h4>
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--8-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <div class="mdl-cell mdl-cell--6-col">
+          <h4>まとめて登録</h4>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <textarea class="mdl-textfield__input"
               v-model="importingPlayersCsv"
               id="players_batch_import"
@@ -31,45 +32,39 @@
               rows= "10"></textarea>
             <label class="mdl-textfield__label" for="players_batch_import">取り込む参加者をコピペで貼り付けてください</label>
           </div>
-          <div class="mdl-cell mdl-cell--4-col">
+          <div class="">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
               @click="importPlayers()">
               取り込み
             </button>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 
-              @click="clearAllPlayers()"
-              style="margin-top:100px;">
+              @click="clearAllPlayers()">
               参加者を全部クリアする
             </button>
           </div>
         </div>
-        <ul class="mdl-list">
-          <li v-for="player in players" class="player mdl-list__item">
-            {{player.id}}. {{player.name}} {{player.choices}}
-          </li>
-        </ul>
       </div>
     </div>
 
-    <div class="mdl-tabs__panel" id="players-match-panel">
-      <h3>結果を確認する</h3>
-      <div>
+    <div class="mdl-layout__tab-panel mdl-grid" id="players-match-panel">
+      <div class="mdl-cell mdl-cell--12-col">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
           @click="matchBoxPlayers()">
           組み合わせを探す
         </button>
-        <ul class="mdl-list">
-          <li v-for="player in players" class="player mdl-list__item">
-            {{player.id}}. {{player.name}} {{player.choices}} : {{player.boxId}}
-          </li>
-        </ul>
       </div>
       <div>
-        <ul class="mdl-list">
-          <li v-for="boxPlayer in boxPlayers" class="box-player mdl-list__item">
+        <div class="mdl-list">
+          <div v-for="boxPlayer in boxPlayers" class="box-player-card mdl-card">
+            <div class="mdl-card__title mdl-card--expand">
+
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+
+            </div>
             {{boxPlayer}}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,7 +1,22 @@
 <template>
-  <div id="app" class="mdl-grid">
-    <box-list ref="boxref" :boxPlayers="boxPlayers" :remainingPlayers="remainingPlayers"></box-list>
-    <player-list v-on:matchBoxPlayers="players_callback" :boxPlayers="boxPlayers"></player-list>
+  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">組み合わせを決めよう</span>
+      </div>
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+        <a href="#scroll-tab-1" class="mdl-layout__tab js-active">役 (Box)</a>
+        <a href="#players-load-panel" class="mdl-layout__tab">参加者 (Player)</a>
+        <a href="#players-match-panel" class="mdl-layout__tab">組み合わせ結果</a>
+      </div>
+    </header>
+    
+    <main class="mdl-layout__content">
+      <section class="mdl-layout__tab-panel is-active mdl-grid" id="scroll-tab-1">
+        <box-list ref="boxref" :boxPlayers="boxPlayers" :remainingPlayers="remainingPlayers"></box-list>
+      </section>
+      <player-list v-on:matchBoxPlayers="players_callback" :boxPlayers="boxPlayers"></player-list>
+    </main>
   </div>
 </template>
 
@@ -83,5 +98,10 @@ export default {
 .num-input {
   width: 40px;
   text-align: right;
+}
+.box-player-card.mdl-card {
+  width: 256px;
+  height: 256px;
+  background: #3E4EB8;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="box-list" class="mdl-cell mdl-cell--6-col">
     <div>
-      <h3>{{name}}</h3>
+      <h3>役の登録</h3>
       <div class="mdl-textfield mdl-js-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="new-box mdl-textfield__input"
           id="new_box"
@@ -79,7 +79,6 @@ export default {
   props: ['remainingPlayers'],
   data () {
     return {
-      name: '役決め',
       newBox: '',
       boxes: boxStorage.fetch(),
       editedBox: null
