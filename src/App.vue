@@ -44,10 +44,11 @@ export default {
         var filteredPlayers = players.filter(function(player) {
           return player.choices.indexOf(b.id) >= 0
         })
-        boxPlayers[b.id] = {
+        boxPlayers.push({
+          id: b.id,
           box: b,
           players: filteredPlayers
-        } 
+        })
       })
       
       var sortedBoxPlayers = boxPlayers.slice()
@@ -80,9 +81,8 @@ export default {
       this.remainingPlayers.forEach(function(p) {
         console.log("\t" + p.name + ' : ' + p.choices.join(','))
       })
-
       this.boxPlayers = boxPlayers
-    },
+    }
   }
 }
 </script>

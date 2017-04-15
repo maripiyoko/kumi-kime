@@ -54,15 +54,19 @@
         </button>
       </div>
       <div>
-        <div class="mdl-list">
-          <div v-for="boxPlayer in boxPlayers" class="box-player-card mdl-card">
+        <div class="mdl-grid">
+          <div v-for="boxPlayer in boxPlayers" :key="boxPlayer.id" 
+            class="box-player-card mdl-card mdl-cell mdl-cell--4-col">
             <div class="mdl-card__title mdl-card--expand">
-
+              <ul>
+                <li v-for="player in boxPlayer.players">
+                  {{player.name}} {{player.choices}}
+                </li>
+              </ul>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-
+              {{boxPlayer.box.id}}. {{boxPlayer.box.name}} ({{boxPlayer.box.num_requirements}})
             </div>
-            {{boxPlayer}}
           </div>
         </div>
       </div>
@@ -153,3 +157,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.box-player-card.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.box-player-card > .mdl-card__title {
+  color: #fff;
+}
+.box-player-card > .mdl-card__actions {
+  background-color: #fff;
+  color: #222;
+}
+</style>
