@@ -146,6 +146,7 @@ export default {
     },
     clearAllBoxes: function() {
       this.boxes = []
+      boxStorage.uid = 0
     }
   },
 
