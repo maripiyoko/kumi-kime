@@ -15,7 +15,7 @@
       <section class="mdl-layout__tab-panel is-active mdl-grid" id="scroll-tab-1">
         <box-list ref="boxref" :boxPlayers="boxPlayers" :remainingPlayers="remainingPlayers"></box-list>
       </section>
-      <player-list v-on:matchBoxPlayers="players_callback" :boxPlayers="boxPlayers"></player-list>
+      <player-list v-on:matchBoxPlayers="players_callback" :boxPlayers="boxPlayers"　:remainingPlayers="remainingPlayers"></player-list>
     </main>
   </div>
 </template>

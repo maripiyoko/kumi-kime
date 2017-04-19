@@ -68,6 +68,18 @@
               {{boxPlayer.box.id}}. {{boxPlayer.box.name}} ({{boxPlayer.box.num_requirements}})
             </div>
           </div>
+          <div class="box-player-card mdl-card mdl-cell mdl-cell--4-col" v-show="remainingPlayers">
+            <div class="mdl-card__title mdl-card--expand">
+              <ul>
+                <li v-for="player in remainingPlayers">
+                  {{player.name}} {{player.choices}}
+                </li>
+              </ul>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              割り当てなし
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -91,7 +103,7 @@ var playerStorage = {
 }
 export default {
   name: 'player-list',
-  props: ['boxPlayers'],
+  props: ['boxPlayers', 'remainingPlayers'],
   data () {
     return {
       name: '参加者一覧',
@@ -169,5 +181,8 @@ export default {
 .box-player-card > .mdl-card__actions {
   background-color: #fff;
   color: #222;
+}
+.box-player-card.player-card-note {
+  border: 2px solid $color-accent;
 }
 </style>

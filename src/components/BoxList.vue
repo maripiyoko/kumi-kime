@@ -43,7 +43,7 @@
       </table>
     </div>
     <div>
-      <ul class="mdl-list">
+      <ul class="mdl-list" v-show="remainingPlayers">
         <li v-for="player in remainingPlayers" class="player mdl-list__item">
           {{player}}
         </li>
