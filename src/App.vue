@@ -42,7 +42,7 @@ export default {
       var boxPlayers = []
       copiedBoxes.forEach(function(b) {
         var filteredPlayers = players.filter(function(player) {
-          return player.choices.indexOf(b.id) >= 0
+          return player.choices.toString().indexOf(String(b.id)) >= 0
         })
         boxPlayers.push({
           id: b.id,
