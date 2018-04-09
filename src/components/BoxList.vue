@@ -24,7 +24,9 @@
         </thead>
         <tbody>
           <tr v-for="box in boxes" class="box" :key="box.id">
-            <td>{{box.id}}</td>
+            <td>
+              <input class="mdl-textfield__input num-input" type="text" v-model="box.id" />
+            </td>
             <td class="mdl-data-table__cell--non-numeric">
               <input class="mdl-textfield__input" type="text" v-model="box.name"/>
             </td>
