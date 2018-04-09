@@ -17,6 +17,14 @@
       </section>
       <player-list v-on:matchBoxPlayers="players_callback" :boxPlayers="boxPlayers"　:remainingPlayers="remainingPlayers"></player-list>
     </main>
+
+    <footer class="mdl-mini-footer">
+      <div class="mdl-mini-footer__left-section">
+        <ul class="mdl-mini-footer__link-list">
+          <li><a href="http://kumikime.zuccha.net">KumiKime Help</a></li>
+        </ul>
+      </div>
+    </footer>
   </div>
 </template>
 
