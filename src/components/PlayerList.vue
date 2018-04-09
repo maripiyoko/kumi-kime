@@ -3,45 +3,44 @@
     <div class="mdl-layout__tab-panel" id="players-load-panel">
       <div id="player-list" class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col">
-          <h4>1人ずつ登録</h4>
-          <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="new-box mdl-textfield__input"
-              id="new_player"
-              type="text"
-              autofocus autocomplete="off"
-              placeholder=""
-              v-model="newPlayer"
-              @keyup.enter="addPlayer" />
-            <label class="mdl-textfield__label" for="new_player">新しい参加者の名前</label>
-          </div>
-
-          <ul class="mdl-list">
-            <li v-for="player in players" class="player mdl-list__item">
-              {{player.id}}. {{player.name}} {{player.choices}} : {{player.boxId}}
-            </li>
-          </ul>
-        </div>
-
-        <div class="mdl-cell mdl-cell--6-col">
-          <h4>まとめて登録</h4>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <h4>参加者の入力</h4>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            @click="importPlayers()">
+            取り込み
+          </button>
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <textarea class="mdl-textfield__input"
               v-model="importingPlayersCsv"
               id="players_batch_import"
               type="text" 
               rows= "10"></textarea>
-            <label class="mdl-textfield__label" for="players_batch_import">取り込む参加者をコピペで貼り付けてください</label>
+            <label class="mdl-textfield__label" for="players_batch_import">取り込む参加者をCSV(カンマ区切り)で入力してください</label>
           </div>
-          <div class="">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-              @click="importPlayers()">
-              取り込み
-            </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 
-              @click="clearAllPlayers()">
-              参加者を全部クリアする
-            </button>
-          </div>
+<hr/>
+          <h5>参加者の入力について</h5>
+          <p>
+          取り込みフォーマットは、CSV(カンマ区切り)です。<br/>
+          名前,希望ID1, 希望ID2, 希望ID3 
+          のような感じ（1人1行）<br/>
+          入力例は以下
+          </p>
+<pre>
+田中さん, 1, 2, 3
+鈴木さん, 4, 2, 3
+</pre>
+        </div>
+
+        <div class="mdl-cell mdl-cell--6-col">
+          <h4>取り込んだ参加者一覧</h4>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 
+            @click="clearAllPlayers()">
+            参加者を全部クリアする
+          </button>
+          <ul class="mdl-list">
+            <li v-for="player in players" class="player mdl-list__item">
+              {{player.name}}, {{player.choices.join(', ')}}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
